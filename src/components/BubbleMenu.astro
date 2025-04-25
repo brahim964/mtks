@@ -22,12 +22,14 @@ const flagEmoji = lang === 'en' ? '🇪🇸' : '🇬🇧';
     <div 
       x-show="open"
       @click.away="open = false"
-      class="absolute bottom-16 right-0 bg-white text-black shadow-xl rounded-lg overflow-hidden w-64"
+      class="absolute bottom-16 right-0 bg-white text-black shadow-xl rounded-lg overflow-hidden w-64 transition-all"
     >
+      <!-- Cabecera -->
       <div class="p-4 border-b">
         <span class="font-semibold text-sm text-gray-700">{indexLabel}</span>
       </div>
 
+      <!-- Enlaces -->
       <ul class="divide-y divide-gray-200">
         <li>
           <a href={`/${lang}/${indexRoute}`} class="block px-5 py-3 hover:bg-blue-100 transition">📄 {indexLabel}</a>
@@ -41,24 +43,41 @@ const flagEmoji = lang === 'en' ? '🇪🇸' : '🇬🇧';
         ))}
       </ul>
 
+      <!-- Logo + redes + idioma -->
       <div class="p-4 border-t flex flex-col items-center text-sm text-gray-600">
         <img src="/img/mtks.webp" alt="Logo" class="h-6 mb-2" />
-
-        <div class="flex gap-4 mb-2">
-          <a href="https://instagram.com" target="_blank" class="hover:text-blue-500">📸</a>
-          <a href="https://facebook.com" target="_blank" class="hover:text-blue-500">📘</a>
-          <a href="https://linkedin.com" target="_blank" class="hover:text-blue-500">💼</a>
+        
+        <div class="flex gap-4 mb-3">
+          <a href="https://instagram.com" target="_blank" class="hover:text-blue-500" aria-label="Instagram">📸</a>
+          <a href="https://facebook.com" target="_blank" class="hover:text-blue-500" aria-label="Facebook">📘</a>
+          <a href="https://linkedin.com" target="_blank" class="hover:text-blue-500" aria-label="LinkedIn">💼</a>
         </div>
 
-        <!-- Selector solo con banderas -->
-        <a 
-          href={`/${otherLang}`} 
-          class="text-2xl hover:scale-110 transition"
-          title="Cambiar idioma"
+        <!-- Selector de idioma -->
+        <button 
+          onclick="switchLanguage()" 
+          class="text-xl hover:scale-110 transition" 
+          aria-label="Cambiar idioma"
         >
           {flagEmoji}
-        </a>
+        </button>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  function switchLanguage() {
+    const currentPath = window.location.pathname;
+    const isSpanish = currentPath.startsWith('/es');
+    const isEnglish = currentPath.startsWith('/en');
+
+    if (isSpanish) {
+      window.location.pathname = currentPath.replace('/es', '/en');
+    } else if (isEnglish) {
+      window.location.pathname = currentPath.replace('/en', '/es');
+    } else {
+      window.location.pathname = '/en';
+    }
+  }
+</script>
