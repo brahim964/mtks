@@ -7,47 +7,64 @@ const sections = dict.secciones;
 ---
 
 <BookLayout title="Catalog">
-  <div id="flipbook" class="mx-auto">
-    <!-- Page 1: Interior cover -->
-    <div class="page flex flex-col items-center justify-center text-center">
-      <h1 class="text-6xl font-bold mb-4">Rubber Track</h1>
-      <p class="text-2xl text-gray-600">Technical Catalog 2025</p>
+  <div id="flipbook" class="flex justify-center gap-4 w-full mx-auto">
+
+    <!-- Left page: Background image with title -->
+    <div class="page relative w-[540px] h-[760px] overflow-hidden shadow">
+      <img src="/img/Orugas.png" alt="Interior cover" class="absolute inset-0 w-full h-full object-cover opacity-90" />
+      <div class="absolute inset-0 bg-white/30 backdrop-blur-sm flex flex-col items-center justify-center text-center p-10">
+        <h1 class="text-5xl font-bold text-gray-900 drop-shadow">Rubber Track</h1>
+        <p class="text-xl mt-4 text-gray-700">Technical Catalog 2025</p>
+      </div>
     </div>
 
-    <!-- Page 2: Single index -->
-    <div class="page p-10">
-      <h2 class="text-3xl font-semibold mb-6 border-b pb-2">Index</h2>
-      <ul class="space-y-4 text-lg">
-        {sections.map((section, i) => (
-          <li class="flex justify-between border-b pb-2">
-            <span>{section.titulo}</span>
-            <span class="text-gray-400 tabular-nums">{String(i + 3).padStart(2, '0')}</span>
-          </li>
-        ))}
-      </ul>
+    <!-- Right page: Index -->
+    <div class="page bg-white w-[540px] h-[760px] p-10 shadow flex flex-col justify-between">
+      <div>
+        <div class="border-t-4 border-blue-600 w-10 mb-4"></div>
+        <h2 class="text-3xl font-semibold mb-6">Index</h2>
+        <ul class="space-y-4 text-lg">
+          {sections.map((section, i) => (
+            <li class="flex justify-between items-start border-b pb-1">
+              <div>
+                <span class="block font-medium">{section.titulo}</span>
+              </div>
+              <span class="text-gray-400 tabular-nums text-sm">{String(i + 3).padStart(2, '0')}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
+
   </div>
 
-  <!-- Page navigation -->
-  <div class="flex justify-center gap-4 mt-6">
-    <button onclick="document.getElementById('flipbook')?.turn('previous')" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition">← Previous</button>
-    <button onclick="document.getElementById('flipbook')?.turn('next')" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition">Next →</button>
+  <!-- Navigation buttons -->
+  <div class="flex justify-center gap-4 mt-8">
+    <button id="btn-prev" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition">← Previous</button>
+    <button id="btn-next" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition">Next →</button>
   </div>
 
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const book = document.getElementById('flipbook');
-      if (book) {
-        // @ts-ignore
-        $('#flipbook').turn({
-          width: 1000,
-          height: 650,
+      const $ = window.jQuery;
+      const flipbook = $('#flipbook');
+
+      if (flipbook.length && typeof flipbook.turn === 'function') {
+        flipbook.turn({
+          width: 1120,
+          height: 760,
           autoCenter: true,
           elevation: 50,
           gradients: true
         });
+
+        document.getElementById('btn-prev')?.addEventListener('click', () => flipbook.turn('previous'));
+        document.getElementById('btn-next')?.addEventListener('click', () => flipbook.turn('next'));
+      } else {
+        console.error('Turn.js not initialized.');
       }
     });
   </script>

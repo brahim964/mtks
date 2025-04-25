@@ -2,7 +2,9 @@
 import '../styles/global.css';
 import BubbleMenu from '../components/BubbleMenu.astro';
 
-const { title = 'Catálogo', lang = 'es' } = Astro.props;
+// Detectar idioma automáticamente en base a la URL
+const lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'es';
+const { title = lang === 'en' ? 'Catalog' : 'Catálogo' } = Astro.props;
 ---
 
 <html lang={lang}>
@@ -13,6 +15,7 @@ const { title = 'Catálogo', lang = 'es' } = Astro.props;
     <script src="https://unpkg.com/alpinejs" defer></script>
   </head>
   <body class="bg-[var(--color-bg)] text-[var(--color-text)] font-serif relative overflow-x-hidden overflow-y-auto">
+    
     <!-- Burbuja de navegación fija -->
     <BubbleMenu lang={lang} />
 

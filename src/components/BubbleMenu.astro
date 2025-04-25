@@ -4,6 +4,8 @@ import en from '../i18n/en.ts';
 
 const { lang = 'es' } = Astro.props;
 const dict = lang === 'en' ? en : es;
+const indexLabel = lang === 'en' ? 'Contents' : 'Contenido';
+const indexRoute = lang === 'en' ? 'catalog' : 'catalogo';
 ---
 
 <div class="fixed bottom-6 right-6 z-50">
@@ -11,7 +13,7 @@ const dict = lang === 'en' ? en : es;
     <button 
       @click="open = !open"
       class="bg-white text-black w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-xl font-bold hover:bg-blue-500 hover:text-white transition"
-      aria-label="Abrir índice"
+      aria-label="Abrir contenido"
     >☰</button>
 
     <!-- Menú desplegable -->
@@ -21,10 +23,12 @@ const dict = lang === 'en' ? en : es;
       class="absolute bottom-16 right-0 bg-white text-black shadow-xl rounded-lg overflow-hidden w-64"
     >
       <div class="p-4 border-b">
-        <span class="font-semibold text-sm text-gray-700">{dict.indice}</span>
+        <span class="font-semibold text-sm text-gray-700">{indexLabel}</span>
       </div>
       <ul class="divide-y divide-gray-200">
-        <li><a href={`/${lang}/catalogo`} class="block px-5 py-3 hover:bg-blue-100 transition">📄 {dict.indice}</a></li>
+        <li>
+          <a href={`/${lang}/${indexRoute}`} class="block px-5 py-3 hover:bg-blue-100 transition">📄 {indexLabel}</a>
+        </li>
         {dict.secciones.map((seccion) => (
           <li>
             <a href={`/${lang}/producto/${seccion.ruta}`} class="block px-5 py-3 hover:bg-blue-100 transition">
