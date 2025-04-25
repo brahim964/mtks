@@ -1,0 +1,79 @@
+---
+import BookLayout from '../../../layouts/BookLayout.astro';
+import BubbleMenu from '../../../components/BubbleMenu.astro';
+import dict from '../../../i18n/es.ts';
+
+const lang = 'es';
+const seccionIndex = dict.secciones.findIndex((s) => s.ruta === 'presentacion');
+const anterior = dict.secciones[seccionIndex - 1]?.ruta;
+const siguiente = dict.secciones[seccionIndex + 1]?.ruta;
+---
+
+<BookLayout title="Presentación">
+  <div id="flipbook" class="mx-auto flex gap-4 justify-center items-start overflow-hidden">
+    <!-- Página izquierda -->
+    <div class="page bg-white p-10 flex flex-col justify-between w-[600px] h-[900px] rounded shadow transition-transform duration-500">
+      <div>
+        <h2 class="text-4xl font-semibold mb-6 border-b pb-2">
+          {dict.secciones[seccionIndex].titulo}
+        </h2>
+        <p class="mb-4">
+          Bienvenido/a a la presentación del producto. Aquí se ofrece una visión general del artículo, incluyendo su propósito, beneficios principales y su contexto de uso.
+        </p>
+        <p class="mb-4">
+          Este catálogo está diseñado para presentarte de forma clara y visual todos los aspectos relevantes del producto, desde sus características técnicas hasta sus patrones de uso más recomendados.
+        </p>
+        <p class="italic text-gray-600">
+          Desliza hacia la siguiente sección para conocer sus características principales.
+        </p>
+      </div>
+      <div class="mt-6">
+        <a href={anterior ? `/es/producto/${anterior}` : `/es/catalogo`} class="inline-block bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition">
+          ← {anterior ? 'Anterior' : 'Índice'}
+        </a>
+      </div>
+    </div>
+
+    <!-- Página derecha -->
+    <div class="page bg-gray-50 p-6 flex flex-col justify-between w-[600px] h-[900px] rounded shadow transition-transform duration-500">
+      <div class="flex-grow flex items-center justify-center">
+        <img src="/img/presentacion.jpg" alt="Imagen de presentación" class="max-h-[80%] max-w-full object-contain rounded shadow" />
+      </div>
+      <div class="mt-6 flex justify-end">
+        <a href={siguiente ? `/es/producto/${siguiente}` : `/es/catalogo`} class="inline-block bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition">
+          {siguiente ? 'Siguiente →' : 'Volver al Índice →'}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Burbuja -->
+  <BubbleMenu lang={lang} />
+
+<!-- Librerías -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
+
+<!-- Init Turn.js -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const flipbookEl = document.getElementById('flipbook');
+
+    // @ts-ignore: jQuery from CDN
+    const $: any = window['$'];
+
+    if ($ && flipbookEl && typeof $(flipbookEl).turn === 'function') {
+      $(flipbookEl).turn({
+        width: 1200,
+        height: 900,
+        autoCenter: true,
+        elevation: 50,
+        gradients: true
+      });
+    } else {
+      console.error('Turn.js no se ha inicializado correctamente.');
+    }
+  });
+</script>
+
+</BookLayout>

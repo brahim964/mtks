@@ -1,0 +1,57 @@
+---
+const { children } = Astro.props;
+---
+
+<div class="flex flex-col items-center">
+  <!-- Contenedor del libro -->
+  <div id="flipbook" class="mx-auto mb-6">
+    {children}
+  </div>
+
+  <!-- Navegación -->
+  <div class="flex justify-center gap-4 mt-4">
+    <button id="btn-prev" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition">
+      ← Anterior
+    </button>
+    <button id="btn-next" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition">
+      Siguiente →
+    </button>
+  </div>
+</div>
+
+<!-- Librerías externas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
+
+<!-- Inicializador -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const $ = (window as any)['$']; // ← esta es la clave
+    const flipbookEl = document.getElementById('flipbook');
+
+    if ($ && flipbookEl) {
+      const book = $('#flipbook');
+
+      if ((book as any).turn) {
+        (book as any).turn({
+          width: 1000,
+          height: 650,
+          autoCenter: true,
+          elevation: 50,
+          gradients: true
+        });
+
+        document.getElementById('btn-prev')?.addEventListener('click', () => {
+          (book as any).turn('previous');
+        });
+        document.getElementById('btn-next')?.addEventListener('click', () => {
+          (book as any).turn('next');
+        });
+      } else {
+        console.error('La función .turn() no está disponible en el book.');
+      }
+    } else {
+      console.error('No se pudo acceder a jQuery o al contenedor flipbook.');
+    }
+  });
+</script>

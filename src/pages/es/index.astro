@@ -1,0 +1,57 @@
+---
+import '../../styles/global.css';
+import dict from '../../i18n/es.ts';
+import BubbleMenu from '../../components/BubbleMenu.astro';
+
+const lang = 'es';
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catálogo Técnico</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      h1, h2 {
+        font-family: 'Playfair Display', serif;
+      }
+    </style>
+  </head>
+  <body class="m-0 p-0 bg-white text-black relative overflow-hidden">
+
+    <!-- Portada vertical tipo libro -->
+    <section class="relative w-full h-screen">
+      <!-- Imagen vertical -->
+      <img 
+        src="/img/Orugas.png" 
+        alt="Portada del catálogo" 
+        class="absolute inset-0 w-full h-full object-cover object-center z-0"
+      />
+
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-white/40 backdrop-blur-sm z-10"></div>
+
+      <!-- Título editorial centrado -->
+      <div class="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-6">
+        <h1 class="text-5xl md:text-7xl font-bold text-gray-900 tracking-tight leading-tight drop-shadow-sm">
+          Rubber Track
+        </h1>
+        <p class="mt-4 text-lg md:text-xl text-gray-700 font-light tracking-wide">
+          Catálogo Técnico 2025
+        </p>
+        <a href="/es/catalogo" class="mt-10 inline-block bg-gray-900 text-white px-6 py-3 rounded hover:bg-gray-700 transition">
+          Entrar al catálogo →
+        </a>
+      </div>
+    </section>
+
+    <!-- Componente de burbuja -->
+    <BubbleMenu lang={lang} />
+
+  </body>
+</html>

@@ -1,0 +1,54 @@
+---
+import '../../styles/global.css';
+import dict from '../../i18n/en.ts';
+import BubbleMenu from '../../components/BubbleMenu.astro';
+
+const lang = 'en';
+type Section = { ruta: string; titulo: string }
+const sections: Section[] = dict.secciones;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Technical Catalog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      h1, h2 {
+        font-family: 'Playfair Display', serif;
+      }
+    </style>
+  </head>
+  <body class="m-0 p-0 bg-white text-black relative overflow-hidden">
+
+    <!-- Cover section -->
+    <section class="relative w-full h-screen">
+      <img 
+        src="/img/Orugas.png" 
+        alt="Catalog cover" 
+        class="absolute inset-0 w-full h-full object-cover object-center z-0"
+      />
+      <div class="absolute inset-0 bg-white/40 backdrop-blur-sm z-10"></div>
+      <div class="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-6">
+        <h1 class="text-5xl md:text-7xl font-bold text-gray-900 tracking-tight leading-tight drop-shadow-sm">
+          Rubber Track
+        </h1>
+        <p class="mt-4 text-lg md:text-xl text-gray-700 font-light tracking-wide">
+          Technical Catalog 2025
+        </p>
+        <a href={`/${lang}/catalog`} class="mt-10 inline-block bg-gray-900 text-white px-6 py-3 rounded hover:bg-gray-700 transition">
+          Enter the catalog →
+        </a>
+      </div>
+    </section>
+
+    <!-- Bubble menu component -->
+    <BubbleMenu lang={lang} />
+    
+  </body>
+</html>

@@ -1,0 +1,76 @@
+---
+import BookLayout from '../../../layouts/BookLayout.astro';
+import BubbleMenu from '../../../components/BubbleMenu.astro';
+import dict from '../../../i18n/en.ts';
+
+const lang = 'en';
+const seccionIndex = dict.secciones.findIndex(s => s.ruta === 'introduction');
+const anterior = dict.secciones[seccionIndex - 1]?.ruta;
+const siguiente = dict.secciones[seccionIndex + 1]?.ruta;
+---
+
+<BookLayout title="Introduction">
+  <div id="flipbook" class="mx-auto mt-10">
+    <!-- Left Page -->
+    <div class="page bg-white p-10 flex flex-col justify-between w-[540px] h-[760px]">
+      <div>
+        <h2 class="text-3xl font-semibold mb-6 border-b pb-2">
+          {dict.secciones[seccionIndex].titulo}
+        </h2>
+        <p class="mb-4">
+          Welcome to the product introduction. This section offers an overview of the item, including its purpose, key benefits, and context of use.
+        </p>
+        <p class="mb-4">
+          This catalog is designed to clearly and visually present all relevant aspects of the product, from technical specifications to best usage patterns.
+        </p>
+        <p class="italic text-gray-600">
+          Flip to the next section to explore its main features.
+        </p>
+      </div>
+      <div class="mt-6">
+        <a href={anterior ? `/en/producto/${anterior}` : `/en/catalog`} class="inline-block bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition">
+          ← {anterior ? 'Previous' : 'Index'}
+        </a>
+      </div>
+    </div>
+
+    <!-- Right Page -->
+    <div class="page bg-gray-50 p-6 flex flex-col justify-between w-[540px] h-[760px]">
+      <div class="flex-grow flex items-center justify-center">
+        <img src="/img/presentacion.jpg" alt="Introduction image" class="max-h-[80%] max-w-full object-contain rounded shadow" />
+      </div>
+      <div class="mt-6 flex justify-end">
+        <a href={siguiente ? `/en/producto/${siguiente}` : `/en/catalog`} class="inline-block bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition">
+          {siguiente ? 'Next →' : 'Back to Index →'}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bubble menu -->
+  <BubbleMenu lang={lang} />
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      /** @type {any} */
+      const $ = (window as any).$;
+      const flipbookEl = document.getElementById('flipbook');
+
+      if ($ && flipbookEl && typeof $(flipbookEl).turn === 'function') {
+        $(flipbookEl).turn({
+          width: 1100,
+          height: 760,
+          autoCenter: true,
+          elevation: 50,
+          gradients: true
+        });
+      } else {
+        console.error('Turn.js did not initialize correctly.');
+      }
+    });
+  </script>
+</BookLayout>

@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Variables de color ===== */
+:root {
+  --color-bg: #f9f8f6;
+  --color-text: #2c2c2c;
+  --color-link: #2563eb;
+  --color-link-hover: #1e40af;
+}
+
+/* ===== Estilo general ===== */
+body {
+  @apply font-serif leading-relaxed;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== Contenedor tipo página de libro ===== */
+.page-container {
+  @apply max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-xl my-16;
+}
+
+/* ===== Títulos ===== */
+h1 {
+  @apply text-4xl font-bold mb-6 text-center;
+}
+
+h2 {
+  @apply text-2xl font-semibold mt-8 mb-4;
+}
+
+/* ===== Párrafos ===== */
+p {
+  @apply text-lg mb-5;
+}
+
+/* ===== Listas ===== */
+ul {
+  @apply list-disc pl-6 mb-4;
+}
+
+li {
+  @apply mb-2;
+}
+
+/* ===== Enlaces ===== */
+a {
+  color: var(--color-link);
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: var(--color-link-hover);
+}
+
+/* ===== Portada a pantalla completa ===== */
+img.fullscreen-cover {
+  @apply w-full h-screen object-cover object-center;
+}
+
+/* ===== Animación tipo pasar página ===== */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ===== Modo impresión ===== */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  .page-container {
+    @apply shadow-none rounded-none p-0 m-0;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  nav {
+    display: none;
+  }
+}

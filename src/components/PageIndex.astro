@@ -1,0 +1,16 @@
+---
+import dict from '../i18n/es.ts';
+const secciones = dict.secciones;
+---
+
+<div class="page p-10">
+  <h2 class="text-3xl font-semibold mb-6 border-b pb-2">Índice</h2>
+  <ul class="space-y-4 text-lg">
+    {secciones.map((seccion, i) => (
+      <li class="flex justify-between border-b pb-2">
+        <span>{seccion.titulo}</span>
+        <span class="text-gray-400 tabular-nums">{String(i + 3).padStart(2, '0')}</span>
+      </li>
+    ))}
+  </ul>
+</div>
