@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "astro": "^5.7.5",
-    "jquery": "^3.7.1"
+    "jquery": "^3.7.1",
+    "mtks": "file:"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.2",
