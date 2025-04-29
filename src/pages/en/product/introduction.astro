@@ -4,66 +4,70 @@ import BubbleMenu from '../../../components/BubbleMenu.astro';
 import dict from '../../../i18n/en.ts';
 
 const lang = 'en';
-const seccionIndex = dict.secciones.findIndex(s => s.ruta === 'introduction');
+const seccionIndex = dict.secciones.findIndex((s) => s.ruta === 'introduction');
 const anterior = dict.secciones[seccionIndex - 1]?.ruta;
 const siguiente = dict.secciones[seccionIndex + 1]?.ruta;
 ---
 
-<BookLayout title="Introduction">
-  <div id="flipbook" class="mx-auto mt-10">
+<BookLayout title="Introduction" lang={lang}>
+  <div id="flipbook" class="mx-auto mt-10 flex gap-4 justify-center items-start overflow-hidden">
+    
     <!-- Left Page -->
-    <div class="page bg-white p-10 flex flex-col justify-between w-[540px] h-[760px]">
+    <div class="page bg-white p-10 flex flex-col justify-between w-[600px] h-[900px] rounded shadow transition-transform duration-500">
       <div>
-        <h2 class="text-3xl font-semibold mb-6 border-b pb-2">
-          {dict.secciones[seccionIndex].titulo}
+        <h2 class="text-4xl font-semibold mb-6 border-b pb-2">
+          {seccionIndex !== -1 ? dict.secciones[seccionIndex].titulo : 'Introduction'}
         </h2>
         <p class="mb-4">
-          Welcome to the product introduction. This section offers an overview of the item, including its purpose, key benefits, and context of use.
+          Zhenjiang Tonly Rubber Co.Ltd., founded in 1958, has been engaged in the design, manufacture, and sales of rubber products for over 60 years.
         </p>
         <p class="mb-4">
-          This catalog is designed to clearly and visually present all relevant aspects of the product, from technical specifications to best usage patterns.
+          In 1989, Tonly started producing rubber tracks and rubber pads, and is one of the companies that participated in drafting national standards for these products.
         </p>
         <p class="italic text-gray-600">
-          Flip to the next section to explore its main features.
+          Currently, the company owns multiple patents and intellectual properties related to rubber tracks and rubber pads.
+        </p>
+        <p class="italic text-gray-600">
+          It is capable of producing 200,000 rubber tracks and 800,000 rubber pads annually and has over 300 employees, including almost 40 engineering technicians.
         </p>
       </div>
       <div class="mt-6">
-        <a href={anterior ? `/en/producto/${anterior}` : `/en/catalog`} class="inline-block bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition">
+        <a href={anterior ? `/en/product/${anterior}` : `/en/catalog`} class="inline-block bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition">
           ← {anterior ? 'Previous' : 'Index'}
         </a>
       </div>
     </div>
 
     <!-- Right Page -->
-    <div class="page bg-gray-50 p-6 flex flex-col justify-between w-[540px] h-[760px]">
+    <div class="page bg-gray-50 p-6 flex flex-col justify-between w-[600px] h-[900px] rounded shadow transition-transform duration-500">
       <div class="flex-grow flex items-center justify-center">
-        <img src="/img/presentacion.jpg" alt="Introduction image" class="max-h-[80%] max-w-full object-contain rounded shadow" />
+        <img src="/img/Doosan.jpg" alt="Introduction image" class="max-h-[80%] max-w-full object-contain rounded shadow" />
       </div>
       <div class="mt-6 flex justify-end">
-        <a href={siguiente ? `/en/producto/${siguiente}` : `/en/catalog`} class="inline-block bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition">
+        <a href={siguiente ? `/en/product/${siguiente}` : `/en/catalog`} class="inline-block bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition">
           {siguiente ? 'Next →' : 'Back to Index →'}
         </a>
       </div>
     </div>
+
   </div>
 
-  <!-- Bubble menu -->
+  <!-- BubbleMenu -->
   <BubbleMenu lang={lang} />
 
   <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      /** @type {any} */
-      const $ = (window as any).$;
       const flipbookEl = document.getElementById('flipbook');
+      const $ = (window as any).$; // jQuery desde CDN
 
       if ($ && flipbookEl && typeof $(flipbookEl).turn === 'function') {
         $(flipbookEl).turn({
-          width: 1100,
-          height: 760,
+          width: 1200,
+          height: 900,
           autoCenter: true,
           elevation: 50,
           gradients: true

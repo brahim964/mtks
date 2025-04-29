@@ -2,13 +2,13 @@
 export default {
   indice: "Content",
   secciones: [
-    { ruta: "presentacion", titulo: "Introduction", traduccion: "Presentacion"},
-    { ruta: "caracteristicas", titulo: "Features", traduccion: "Características" },
-    { ruta: "estructura", titulo: "Structure" , traduccion: "Estructura" },
-    { ruta: "especificaciones", titulo: "Specifications", traduccion: "Especificaciones" },
-    { ruta: "guias", titulo: "Guides", traduccion: "Guías" },
-    { ruta: "patrones", titulo: "Patterns" , traduccion: "Patrones"},
-    { ruta: "clasificacion", titulo: "Classification" , traduccion: "Clasificación"},
-    { ruta: "almohadillas", titulo: "Rubber Pads", traduccion: "Almohadillas de goma" }
+    { ruta: "presentacion", titulo: "Introduction"},
+    { ruta: "caracteristicas", titulo: "Features"},
+    { ruta: "estructura", titulo: "Structure"},
+    { ruta: "especificaciones", titulo: "Specifications"},
+    { ruta: "guias", titulo: "Guides"},
+    { ruta: "patrones", titulo: "Patterns"},
+    { ruta: "clasificacion", titulo: "Classification"},
+    { ruta: "almohadillas", titulo: "Rubber Pads"}
   ]
 };
